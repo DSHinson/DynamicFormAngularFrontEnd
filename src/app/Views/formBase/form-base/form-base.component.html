@@ -1,0 +1,22 @@
+
+<div [formGroup]="form">
+    <label [attr.for]="question.key">{{question.label}}</label>
+  
+    
+  
+      <input [(ngModel)]="question.value" class="form-control" *ngIf="question.type !== 'Select' && question.type !== 'CheckBox'"  [formControlName]="question.key"  [id]="question.key" [type]="question.type"/>
+
+      <select [(ngModel)]="question.value" [formControlName]="question.key"  [id]="question.key"  class="form-control" *ngIf="question.type === 'Select'">
+        <option selected="selected" disabled>Please select...</option>
+        <option *ngFor="let choice of question.options" [ngValue]="choice.value">
+          {{choice.key}}
+        </option>
+      </select>
+      
+  
+      <div *ngIf="!isValid" class="form-group has-warning has-feedback">
+        <label for="inputWarning2">{{question.label}} is required</label>
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+      </div>
+      <hr>
+  </div>
