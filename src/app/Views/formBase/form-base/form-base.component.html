@@ -7,7 +7,7 @@
       <input [(ngModel)]="question.value" class="form-control" *ngIf="question.type !== 'Select' && question.type !== 'CheckBox'"  [formControlName]="question.key"  [id]="question.key" [type]="question.type"/>
 
       <select [(ngModel)]="question.value" [formControlName]="question.key"  [id]="question.key"  class="form-control" *ngIf="question.type === 'Select'">
-        <option selected="selected" disabled>Please select...</option>
+        <option selected="selected" hidden selected disabled value="{{null}}">Please select...</option>
         <option *ngFor="let choice of question.options" [ngValue]="choice.value">
           {{choice.key}}
         </option>

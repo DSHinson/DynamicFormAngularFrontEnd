@@ -17,6 +17,7 @@ export class InputService implements IInputService{
               {key: 'unproven', value: 'Unproven'}
             ],
             type:"Select",
+            required: true,
             value: '',
             order: 3
           }),
