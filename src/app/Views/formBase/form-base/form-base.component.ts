@@ -1,4 +1,4 @@
-import { Component, Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { dynamicInputModel } from 'src/Model/dynamicInput.model';
 
@@ -9,9 +9,11 @@ import { dynamicInputModel } from 'src/Model/dynamicInput.model';
 })
 export class FormBaseComponent implements OnInit {
 
-  @Input() question!: dynamicInputModel<string|null>;
+  @Input() question!: dynamicInputModel<string | null>;
   @Input() form!: FormGroup;
-  get isValid() { return this.form.controls[this.question.key].valid; }
+  get isValid() {
+     return this.form.controls[this.question.key]!.valid; 
+  }
 
   constructor() { }
 

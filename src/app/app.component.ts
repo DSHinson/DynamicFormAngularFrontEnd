@@ -23,8 +23,11 @@ export class AppComponent {
 
   title = 'testApp';
   ngOnInit() {
-    this.questions = this.InputService.getQuestions();
-    this.form = this.FormGenerator.toFormGroup(this.questions as dynamicInputModel<string>[]);
+    this.InputService.getQuestions().subscribe(data => {
+      this.questions = data;
+      this.form = this.FormGenerator.toFormGroup(this.questions as dynamicInputModel<string>[]);
+    });
+    
   }
 
   onSubmit() {

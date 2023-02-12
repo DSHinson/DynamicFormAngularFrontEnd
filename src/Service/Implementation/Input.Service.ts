@@ -1,55 +1,24 @@
 import { dynamicInputModel } from "src/Model/dynamicInput.model";
 import { IInputService } from "../Abstraction/IInput.Service";
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from "rxjs";
+import { Injectable } from '@angular/core';
 
-export class InputService implements IInputService{
+@Injectable({
+  providedIn: 'root'
+})
 
-    questions:Array< dynamicInputModel<string|null>> = [];
+export class InputService implements IInputService {
 
-    getQuestions(): Array< dynamicInputModel<string|null>> {
-        
-        this.questions.push(new dynamicInputModel({
-            key: 'braveRating',
-            label: 'Bravery Rating',
-            options: [
-              {key: 'solid',  value: 'Solid'},
-              {key: 'great',  value: 'Great'},
-              {key: 'good',   value: 'Good'},
-              {key: 'unproven', value: 'Unproven'}
-            ],
-            type:"Select",
-            required: true,
-            value: '',
-            order: 3
-          }),
-    
-          new dynamicInputModel({
-            key: 'firstName',
-            label: 'First name',
-            type:"Text",
-            value: '',
-            required: true,
-            order: 1
-          }),
-          new dynamicInputModel({
-            key: 'Gender',
-            label: 'Gender',
-            value: '',
-            type:"Select",
-            options: [
-              {key: 'Male',  value: 'Male'},
-              {key: 'Female',  value: 'Female'},
-            ],
-            order: 4
-          }),
-    
-          new dynamicInputModel({
-            key: 'emailAddress',
-            label: 'Email',
-            type: 'email',
-            order: 2
-          }));
+  constructor(private http: HttpClient) { }
 
-          return this.questions;
-    }
- 
+  getQuestions():Observable< Array<dynamicInputModel<string | null>>> {
+   return this.http.get<Array<dynamicInputModel<string | null>>>('./assets/testData.json')
+      .pipe(
+        map(data => {
+          return data.map(item => new dynamicInputModel(item))
+        })
+      )
+  }
+
 }
